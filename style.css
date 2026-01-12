@@ -14,6 +14,18 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+.theme-toggle {
+  margin-top: 1rem;
+  padding: 0.5rem 1.2rem;
+  border: none;
+  border-radius: 20px;
+  background: #fff;
+  color: #333;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.3s, color 0.3s;
+}
+
 /* Header */
 header {
   background: linear-gradient(135deg, #667eea, #764ba2);
@@ -171,6 +183,42 @@ main {
   color: #16a34a;
   font-weight: 600;
 }
+/* Dark Mode */
+body.dark {
+  background: #0f172a;
+  color: #e5e7eb;
+}
+
+body.dark header {
+  background: linear-gradient(135deg, #020617, #1e293b);
+}
+
+body.dark .coin-card {
+  background: #020617;
+  border-color: #1e293b;
+}
+
+body.dark .coin-card p,
+body.dark .coin-card h2 {
+  color: #e5e7eb;
+}
+
+body.dark .modal-content {
+  background: #020617;
+  color: #e5e7eb;
+}
+
+body.dark #search {
+  background: #020617;
+  color: #e5e7eb;
+  border-color: #334155;
+}
+
+body.dark .theme-toggle {
+  background: #1e293b;
+  color: #e5e7eb;
+}
+
 
 .negative {
   color: #dc2626;
