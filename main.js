@@ -8,9 +8,14 @@ const searchInput = document.getElementById("search");
 const modal = document.getElementById("modal");
 const modalBody = document.getElementById("modal-body");
 const closeModalBtn = document.getElementById("close-modal");
+const lastUpdatedEl = document.getElementById("last-updated");
+
+// Utility: Loading state
 const showLoading = () => {
   coinListEl.innerHTML = "<p style='text-align: center;'>Loading data...</p>";
 };
+
+// Utility: Debounce
 const debounce = (fn, delay = 300) => {
   let timer;
   return (...args) => {
@@ -20,6 +25,7 @@ const debounce = (fn, delay = 300) => {
 };
 
 let coinsData = [];
+let refreshIntervalId = null;
 
 // Fetch top coins from CoinGecko
 const fetchCoins = async () => {
@@ -33,26 +39,21 @@ const fetchCoins = async () => {
 
     coinsData = data;
     renderCoins(data);
+
+    // Update last refreshed time
+    const now = new Date();
+    lastUpdatedEl.textContent = `Last updated: ${now.toLocaleTimeString()}`;
   } catch (error) {
     coinListEl.innerHTML =
       "<p style='text-align: center;'>Failed to fetch data.</p>";
   }
 };
 
-
-let refreshIntervalId = null;
-
+// Auto refresh logic
 const startAutoRefresh = (ms = 30000) => {
   if (refreshIntervalId) clearInterval(refreshIntervalId);
   refreshIntervalId = setInterval(fetchCoins, ms);
 };
-
-//ESC key listener
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") {
-    modal.style.display = "none";
-  }
-});
 
 // Initialize data fetch and auto-refresh on page load
 document.addEventListener("DOMContentLoaded", () => {
@@ -63,10 +64,12 @@ document.addEventListener("DOMContentLoaded", () => {
 // Render coin cards
 const renderCoins = (coins) => {
   coinListEl.innerHTML = "";
+
   if (coins.length === 0) {
     coinListEl.innerHTML = "<p style='text-align: center;'>No coins found.</p>";
     return;
   }
+
   coins.forEach((coin) => {
     const card = document.createElement("div");
     card.className = "coin-card";
@@ -76,16 +79,17 @@ const renderCoins = (coins) => {
       <p>Symbol: ${coin.symbol.toUpperCase()}</p>
       <p>Price: $${coin.current_price.toLocaleString()}</p>
       <p>Market Cap: $${coin.market_cap.toLocaleString()}</p>
-      <p class="${coin.price_change_percentage_24h >= 0 ? 'positive' : 'negative'}">
-  24h Change: ${coin.price_change_percentage_24h.toFixed(2)}%
-</p>
+      <p class="${coin.price_change_percentage_24h >= 0 ? "positive" : "negative"}">
+        24h Change: ${coin.price_change_percentage_24h.toFixed(2)}%
+      </p>
     `;
+
     card.addEventListener("click", () => showCoinDetails(coin.id));
     coinListEl.appendChild(card);
   });
 };
 
-// Filter coins based on search input
+// Search logic with debounce
 const handleSearch = (e) => {
   const term = e.target.value.toLowerCase();
   const filteredCoins = coinsData.filter((coin) =>
@@ -121,20 +125,20 @@ const displayModal = (coin) => {
   modal.style.display = "block";
 };
 
-// Close modal when clicking the close button
+// Close modal events
 closeModalBtn.addEventListener("click", () => {
   modal.style.display = "none";
 });
 
-// Also close modal when clicking outside the modal content
 window.addEventListener("click", (e) => {
-  if (e.target == modal) {
+  if (e.target === modal) {
     modal.style.display = "none";
   }
 });
 
-// Fetch coins on page load
-document.addEventListener("DOMContentLoaded", () => {
-  fetchCoins();
-  startAutoRefresh(30000);
+// ESC key closes modal
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    modal.style.display = "none";
+  }
 });
