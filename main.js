@@ -11,6 +11,13 @@ const closeModalBtn = document.getElementById("close-modal");
 const showLoading = () => {
   coinListEl.innerHTML = "<p style='text-align: center;'>Loading data...</p>";
 };
+const debounce = (fn, delay = 300) => {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn(...args), delay);
+  };
+};
 
 let coinsData = [];
 
@@ -79,13 +86,15 @@ const renderCoins = (coins) => {
 };
 
 // Filter coins based on search input
-searchInput.addEventListener("input", (e) => {
+const handleSearch = (e) => {
   const term = e.target.value.toLowerCase();
   const filteredCoins = coinsData.filter((coin) =>
     coin.name.toLowerCase().includes(term)
   );
   renderCoins(filteredCoins);
-});
+};
+
+searchInput.addEventListener("input", debounce(handleSearch, 300));
 
 // Fetch and show coin details in modal
 const showCoinDetails = async (coinId) => {
