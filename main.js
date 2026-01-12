@@ -8,22 +8,30 @@ const searchInput = document.getElementById("search");
 const modal = document.getElementById("modal");
 const modalBody = document.getElementById("modal-body");
 const closeModalBtn = document.getElementById("close-modal");
+const showLoading = () => {
+  coinListEl.innerHTML = "<p style='text-align: center;'>Loading data...</p>";
+};
 
 let coinsData = [];
 
 // Fetch top coins from CoinGecko
 const fetchCoins = async () => {
   try {
+    showLoading();
+
     const res = await fetch(
       `${API_BASE_URL}/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=false`
     );
     const data = await res.json();
+
     coinsData = data;
     renderCoins(data);
   } catch (error) {
-    coinListEl.innerHTML = "<p style='text-align: center;'>Failed to fetch data.</p>";
+    coinListEl.innerHTML =
+      "<p style='text-align: center;'>Failed to fetch data.</p>";
   }
 };
+
 
 let refreshIntervalId = null;
 
