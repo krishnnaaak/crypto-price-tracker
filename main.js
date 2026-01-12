@@ -69,7 +69,9 @@ const renderCoins = (coins) => {
       <p>Symbol: ${coin.symbol.toUpperCase()}</p>
       <p>Price: $${coin.current_price.toLocaleString()}</p>
       <p>Market Cap: $${coin.market_cap.toLocaleString()}</p>
-      <p>24h Change: ${coin.price_change_percentage_24h.toFixed(2)}%</p>
+      <p class="${coin.price_change_percentage_24h >= 0 ? 'positive' : 'negative'}">
+  24h Change: ${coin.price_change_percentage_24h.toFixed(2)}%
+</p>
     `;
     card.addEventListener("click", () => showCoinDetails(coin.id));
     coinListEl.appendChild(card);
