@@ -115,4 +115,7 @@ window.addEventListener("click", (e) => {
 });
 
 // Fetch coins on page load
-document.addEventListener("DOMContentLoaded", fetchCoins);
+document.addEventListener("DOMContentLoaded", () => {
+  fetchCoins();
+  startAutoRefresh(30000);
+});
