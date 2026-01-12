@@ -47,6 +47,13 @@ const stopAutoRefresh = () => {
   }
 };
 
+//ESC key listener
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    modal.style.display = "none";
+  }
+});
+
 // Replace the old single fetch on load with this block
 document.addEventListener("DOMContentLoaded", () => {
   fetchCoins();
