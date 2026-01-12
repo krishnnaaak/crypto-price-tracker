@@ -167,3 +167,12 @@ main {
   font-size: 1rem;
   margin: 0.5rem 0;
 }
+.positive {
+  color: #16a34a;
+  font-weight: 600;
+}
+
+.negative {
+  color: #dc2626;
+  font-weight: 600;
+}
