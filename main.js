@@ -40,13 +40,6 @@ const startAutoRefresh = (ms = 30000) => {
   refreshIntervalId = setInterval(fetchCoins, ms);
 };
 
-const stopAutoRefresh = () => {
-  if (refreshIntervalId) {
-    clearInterval(refreshIntervalId);
-    refreshIntervalId = null;
-  }
-};
-
 //ESC key listener
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {
@@ -54,7 +47,7 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-// Replace the old single fetch on load with this block
+// Initialize data fetch and auto-refresh on page load
 document.addEventListener("DOMContentLoaded", () => {
   fetchCoins();
   startAutoRefresh(30000);
