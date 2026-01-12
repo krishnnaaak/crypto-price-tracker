@@ -1,0 +1,169 @@
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/* Global Styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  background: #f7f9fc;
+  color: #333;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Header */
+header {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: #fff;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2.5rem;
+  letter-spacing: 1px;
+}
+
+/* Main Container */
+main {
+  padding: 2rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Search Bar */
+.search-container {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+#search {
+  padding: 0.75rem 1rem;
+  width: 320px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 50px;
+  outline: none;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+#search:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 8px rgba(102,126,234,0.6);
+}
+
+/* Coin List */
+.coin-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  padding: 0 1rem;
+}
+
+/* Coin Card */
+.coin-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  border: 1px solid #e6e9f0;
+}
+
+.coin-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.coin-card img {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.coin-card:hover img {
+  transform: scale(1.1);
+}
+
+.coin-card h2 {
+  font-size: 1.25rem;
+  margin: 0.5rem 0;
+}
+
+.coin-card p {
+  margin: 0.25rem 0;
+  font-size: 0.95rem;
+}
+
+/* Modal Styles */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 20;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 2rem 1rem;
+}
+
+.modal-content {
+  background: #fff;
+  margin: auto;
+  border-radius: 10px;
+  padding: 2rem;
+  max-width: 500px;
+  position: relative;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.close-button {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #666;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.close-button:hover {
+  color: #000;
+}
+
+/* Modal Body Styling */
+#modal-body {
+  text-align: center;
+}
+
+#modal-body h2 {
+  margin-top: 0;
+  font-size: 2rem;
+}
+
+#modal-body img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin: 1rem 0;
+}
+
+#modal-body p {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+}
