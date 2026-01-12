@@ -9,6 +9,7 @@ const modal = document.getElementById("modal");
 const modalBody = document.getElementById("modal-body");
 const closeModalBtn = document.getElementById("close-modal");
 const lastUpdatedEl = document.getElementById("last-updated");
+const themeToggleBtn = document.getElementById("theme-toggle");
 
 // Utility: Loading state
 const showLoading = () => {
@@ -133,6 +134,25 @@ closeModalBtn.addEventListener("click", () => {
 window.addEventListener("click", (e) => {
   if (e.target === modal) {
     modal.style.display = "none";
+  }
+});
+
+// Dark mode toggle
+themeToggleBtn.addEventListener("click", () => {
+  document.body.classList.toggle("dark");
+
+  const isDark = document.body.classList.contains("dark");
+  themeToggleBtn.textContent = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
+
+  localStorage.setItem("theme", isDark ? "dark" : "light");
+});
+
+// Load saved theme
+document.addEventListener("DOMContentLoaded", () => {
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme === "dark") {
+    document.body.classList.add("dark");
+    themeToggleBtn.textContent = "☀️ Light Mode";
   }
 });
 
