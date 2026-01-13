@@ -186,9 +186,30 @@ main {
 #modal-body img {
   width: 120px;
   height: 120px;
+  object-fit: contain;   /* KEY FIX */
   border-radius: 50%;
   margin: 1rem 0;
+  background: #020617;   /* subtle backdrop for transparent logos */
+  padding: 12px;
 }
+
+.modal-icon {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: #020617;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem auto;
+}
+
+.modal-icon img {
+  width: 70%;
+  height: 70%;
+  object-fit: contain;
+}
+
 
 #modal-body p {
   font-size: 1rem;
