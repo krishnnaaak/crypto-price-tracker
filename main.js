@@ -121,17 +121,22 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const displayModal = (coin) => {
-    modalBody.innerHTML = `
-      <h2>${coin.name} (${coin.symbol.toUpperCase()})</h2>
-      <img src="${coin.image.large}" style="width:100px;border-radius:50%;" />
-      <p><strong>Current Price:</strong> $${coin.market_data.current_price.usd.toLocaleString()}</p>
-      <p><strong>Market Cap:</strong> $${coin.market_data.market_cap.usd.toLocaleString()}</p>
-      <p><strong>Total Volume:</strong> $${coin.market_data.total_volume.usd.toLocaleString()}</p>
-      <p><strong>24h Change:</strong> ${coin.market_data.price_change_percentage_24h.toFixed(2)}%</p>
-      <p><strong>Circulating Supply:</strong> ${coin.market_data.circulating_supply.toLocaleString()}</p>
-    `;
-    modal.style.display = "block";
-  };
+  modalBody.innerHTML = `
+    <h2>${coin.name} (${coin.symbol.toUpperCase()})</h2>
+
+    <div class="modal-icon">
+      <img src="${coin.image.large}" alt="${coin.name} logo" />
+    </div>
+
+    <p><strong>Current Price:</strong> $${coin.market_data.current_price.usd.toLocaleString()}</p>
+    <p><strong>Market Cap:</strong> $${coin.market_data.market_cap.usd.toLocaleString()}</p>
+    <p><strong>Total Volume:</strong> $${coin.market_data.total_volume.usd.toLocaleString()}</p>
+    <p><strong>24h Change:</strong> ${coin.market_data.price_change_percentage_24h.toFixed(2)}%</p>
+    <p><strong>Circulating Supply:</strong> ${coin.market_data.circulating_supply.toLocaleString()}</p>
+  `;
+  modal.style.display = "block";
+};
+
 
   closeModalBtn.addEventListener("click", () => (modal.style.display = "none"));
   window.addEventListener("click", (e) => {
