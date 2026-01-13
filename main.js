@@ -31,26 +31,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Fetch coins
   const fetchCoins = async () => {
-    try {
-      showLoading();
-
-      const res = await fetch(
-        `${API_BASE_URL}/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=false`
-      );
-      const data = await res.json();
-
-      coinsData = data;
-      renderCoins(data);
-
-      if (lastUpdatedEl) {
-        const now = new Date();
-        lastUpdatedEl.textContent = `Last updated: ${now.toLocaleTimeString()}`;
+  showLoading();
+  try {
+    const res = await fetch(
+      `${API_BASE_URL}/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=false`,
+      {
+        headers: {
+          "Accept": "application/json"
+        }
       }
-    } catch (err) {
-      coinListEl.innerHTML =
-        "<p style='text-align:center;'>Failed to fetch data.</p>";
+    );
+
+    if (!res.ok) throw new Error("API blocked");
+
+    const data = await res.json();
+    coinsData = data;
+    renderCoins(data);
+
+    if (lastUpdatedEl) {
+      lastUpdatedEl.textContent =
+        `Last updated: ${new Date().toLocaleTimeString()}`;
     }
-  };
+  } catch (err) {
+    coinListEl.innerHTML = `
+      <p style="text-align:center;color:red;">
+        API temporarily unavailable. Please try again later.
+      </p>
+    `;
+    console.error("Fetch failed:", err);
+  }
+};
+
+
 
   // Auto refresh
   const startAutoRefresh = (ms = 30000) => {
@@ -148,5 +160,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Start app
   fetchCoins();
-  startAutoRefresh(30000);
 });
